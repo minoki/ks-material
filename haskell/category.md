@@ -129,7 +129,7 @@ newtype Identity a = Identity a
 
 ## もっと一般の関手
 
-圏論では直積圏とか双対圏をホイホイ扱えるので、直積 × を C×C から C への関手だと思ったり、 Hom を C^op × C からの関手だと思う、というようなこともできますが、さっきも書いたように、Haskellの Functor クラスのインスタンスになるのは Hask 圏から Hask 圏の関手（の一部）だけです。
+圏論では直積圏とか双対圏をホイホイ扱えるので、直積 × を C×C から C への関手だと思ったり、 Hom を C<sup>op</sup> × C からの関手だと思う、というようなこともできますが、さっきも書いたように、Haskellの Functor クラスのインスタンスになるのは Hask 圏から Hask 圏の関手（の一部）だけです。
 
 逆に言えば、 Functor クラスとは別の、新たな型クラスを作れば、別の種類の関手を扱うことができます。
 
@@ -149,7 +149,7 @@ instance Bifunctor Either where
 ```
 この型クラスは、 [Data.Bifunctor モジュール](https://hackage.haskell.org/package/base/docs/Data-Bifunctor.html)ですでに用意されています。
 
-あるいは、 Hask^op から Hask への関手（Hask から Hask への反変関手）を扱いたければ、
+あるいは、 Hask<sup>op</sup> から Hask への関手（Hask から Hask への反変関手）を扱いたければ、
 ```haskell
 class Contravariant f where
   contramap :: (a -> b) -> f b -> f a
