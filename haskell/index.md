@@ -21,10 +21,10 @@ $ sudo apt-get install haskell-platform
 - [入門編](intro.html)
   - Haskellを電卓代わりに使ってみましょう。
 - [リストと文字列](list.html)
-- 型と関数
-- 入出力入門
+- [型と関数](types-and-functions.html)
+- [入出力入門](io.html)
   - ユーザーに入力を求めたり、ファイルを読み書きしたりするプログラムを書きましょう。
-- データ型とパターンマッチ
+- [データ型とパターンマッチ](data-types.html)
 - [型クラス](type-classes.html)
   - Haskell最大の特徴の一つである、型クラスについて解説します。
 - [モナド](monad.html)
