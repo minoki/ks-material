@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  入門編
+usemath: true
 ---
 # 電卓代わりに使う
 
@@ -282,7 +283,7 @@ doubleFact n = product [n,n-2..1]
 ですが、この定義は（性質の証明には役立ちますが）計算には向いていません。そこで、計算には、上の定義と等価な、次の漸化式を使います。（問：上の定義から漸化式を導け）
 \\[
 \begin{aligned}
-B_0 &= 1 \\\\
+B_0 &= 1 \\\\\\\\
 B_{n} &= -\frac{1}{n+1} \sum_{k=0}^{n-1} \binom{n+1}{k} B_k \quad (n > 0)
 \end{aligned}
 \\]
