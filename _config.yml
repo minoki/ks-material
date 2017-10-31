@@ -45,3 +45,4 @@ plugins:
 header_pages:
   - about.md
   - haskell/index.md
+  - ecmascript/index.md
