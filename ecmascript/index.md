@@ -60,7 +60,7 @@ Hello world!
 
 console.log は、標準出力（この場合はターミナル）に文字列を出力するための関数です。厳密にいうと、console という名前のオブジェクトがあり、そこに所属する log という名前の関数（メソッド）を呼び出しています。
 
-JavaScriptにおける文字列リテラルは "" (double quotation) で囲みます。
+JavaScriptにおける文字列リテラルは `""` (double quotation) で囲みます。
 
 注： console オブジェクトは ECMAScript 標準で定められたものではなく、Node.jsが独自に用意しているものです。この関数の元ネタは、ブラウザー上でJavaScriptをデバッグするために用意されている同名の関数です。
 
@@ -89,17 +89,17 @@ node の起動後に表示される `> ` はコードの入力を受け付ける
 4. [制御構造](control-structure.html)
 5. [配列](array.html)
 6. [オブジェクト](object.html)
-7. 値と演算のまとめ
-8. プログラムの例
+7. [値と演算のまとめ](values-and-operators.html)
+8. [プログラムの例](examples.html)
 
 ## Node.js 編
 
 Node.js が提供する機能を使ってみましょう。
 
-- Node.js の基礎
+- [Node.js の基礎](nodejs-basics.html)
 - ファイルの読み書きをする
-- HTTPによってファイルをダウンロードする
-- HTTPサーバーを立てる
+- [HTTPによってファイルをダウンロードする](node-http-client.html)
+- [HTTPサーバーを立てる](node-http-server.html)
 
 # もっと勉強したい方へ
 
