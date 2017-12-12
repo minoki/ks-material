@@ -101,6 +101,12 @@ Node.js が提供する機能を使ってみましょう。
 - [HTTPによってファイルをダウンロードする](node-http-client.html)
 - [HTTPサーバーを立てる](node-http-server.html)
 
+## HTML 編
+
+Web ブラウザーで JavaScript を動かしてみましょう。
+
+- [HTML/DOM の基礎](html-basics.html)
+
 # もっと勉強したい方へ
 
 もっと勉強したい方向けに、Mozilla Developer Network (MDN) の JavaScript のページを紹介しておきます：<https://developer.mozilla.org/ja/docs/Web/JavaScript>
