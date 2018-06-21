@@ -5,6 +5,7 @@ title: リストと文字列
 [入門編](intro.html)では数のリストを少し扱いました。この記事ではリストについてもう少し見ていきます。
 
 この記事では主に対話環境を使って説明するので、対話環境を開いておきましょう。
+
 ```
 $ ghci
 ```
@@ -12,13 +13,15 @@ $ ghci
 # 等差数列
 
 Haskellでは等差数列を簡単に作ることができます。
-```
+
+```haskell
 Prelude> [1..10]
 [1,2,3,4,5,6,7,8,9,10]
 ```
 
 初項の他に第二項を指定することで、公差を指定した等差数列を作ることができます。
-```
+
+```haskell
 Prelude> [1,3..12]
 [1,3,5,7,9,11]
 Prelude> [0,100..1000]
@@ -28,7 +31,8 @@ Prelude> [0,100..1000]
 # 文字列
 
 Haskellにおいては、文字列というのは単なる文字のリストです。文字列は二重引用符、文字は一重引用符で括ります。
-```
+
+```haskell
 Prelude> "Hello"
 "Hello"
 Prelude> 'A'
@@ -36,10 +40,12 @@ Prelude> 'A'
 Prelude> ['H','e','l','l','o']
 "Hello"
 ```
+
 文字列がリストだということは、つまりリストに対する演算子や関数がそのまま文字列に対して使えるということです。
 
 show関数を使うと、数やリストなどを文字列に変換することができます。
-```
+
+```haskell
 Prelude> show 123
 "123"
 Prelude> show [1..10]
@@ -48,12 +54,15 @@ Prelude> show [1..10]
 
 # リストに関する演算子
 コロン `:` 演算子を使うと、リストの先頭に要素を付け足すことができます。
-```
+
+```haskell
 Prelude> 1 : [2,3,4]
 [1,2,3,4]
 ```
+
 `:` 演算子は右結合なので、 `1:2:3:4:[]` と書くと `1:(2:(3:(4:[])))` と解釈されます。
-```
+
+```haskell
 Prelude> 1:2:3:4:[]
 [1,2,3,4]
 Prelude> 'T':"odai"
@@ -61,7 +70,8 @@ Prelude> 'T':"odai"
 ```
 
 `!!` 演算子を使うと、リストの要素を番号で指定して得ることができます。リストの最初の要素が0番目となります。
-```
+
+```haskell
 Prelude> [2,3,5,7] !! 2
 5
 Prelude> "Komaba" !! 3
@@ -69,7 +79,8 @@ Prelude> "Komaba" !! 3
 ```
 
 リストを連結するには、 `++` 演算子を使います。
-```
+
+```haskell
 Prelude> [2,3,5] ++ [10,20,30]
 [2,3,5,10,20,30]
 Prelude> "Tensai" ++ "Genius"
@@ -83,7 +94,8 @@ Prelude> "Tensai" ++ "Genius"
 map関数は、リストの各要素に対して関数を適用し、新しいリストを作ります。
 
 f を関数として、 `map f [x,y,z]` と書くと、 `[f x,f y,f z]` と等価になります。
-```
+
+```haskell
 Prelude> map (\x -> x + 1) [3,5,7]
 [4,6,8]
 Prelude> map show [1..5]
@@ -91,8 +103,10 @@ Prelude> map show [1..5]
 ```
 
 ## reverse関数
+
 reverse関数は、その名の通りリストを反転させます。
-```
+
+```haskell
 Prelude> reverse [1,3,5]
 [5,3,1]
 Prelude> reverse "tensai"
@@ -100,8 +114,10 @@ Prelude> reverse "tensai"
 ```
 
 ## filter関数
+
 filter関数を使うと、リストから条件に合致する要素のみを抜き出すことができます。`filter （条件を表す関数） （リスト）` の形で使います。
-```
+
+```haskell
 Prelude> filter (\n -> n `mod` 2 == 0) [2,3,5,7,11]
 [2]
 Prelude> filter (\n -> n `mod` 4 == 1) [2,3,5,7,11,13,17]
@@ -109,7 +125,8 @@ Prelude> filter (\n -> n `mod` 4 == 1) [2,3,5,7,11,13,17]
 ```
 
 入門編で定義したisPrime関数を使って、整数のリストから素数だけを取り出してみましょう。
-```
+
+```haskell
 Prelude> let isPrime n = n > 1 && all (\k -> n `mod` k /= 0) [2..n-1]
 Prelude> filter isPrime [1..100]
 [2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97]
@@ -123,7 +140,7 @@ Prelude> filter isPrime [1..100]
 
 length関数はリストの長さを返します。
 
-```
+```haskell
 Prelude> length [2,3,5,7]
 4
 Prelude> length "Hello"
@@ -133,7 +150,8 @@ Prelude> length [0,5..100]
 ```
 
 100以下の素数がいくつあるか数えてみましょう。
-```
+
+```haskell
 Prelude> length (filter isPrime [1..100])
 25
 ```
@@ -143,7 +161,8 @@ Prelude> length (filter isPrime [1..100])
 ## concat関数
 
 concat関数は、リストからなるリストを繋げて1つのリストにします。
-```
+
+```haskell
 Prelude> concat [[1,2,3],[7,8],[],[100,101]]
 [1,2,3,7,8,100,101]
 Prelude> concat ["Hel","lo ","wor","ld!"]
@@ -155,7 +174,8 @@ Prelude> concat (map show [1..5])
 ## take関数
 
 take関数を使うと、リストの最初の数項だけを取り出すことができます。
-```
+
+```haskell
 Prelude> take 10 [1,3..100]
 [1,3,5,7,9,11,13,15,17,19]
 Prelude> take 10 (filter isPrime [1..100])
@@ -164,8 +184,9 @@ Prelude> take 10 (filter isPrime [1..100])
 
 ## drop関数
 
-drop関数を使うと、リストの最初の数項を「落とす」ことができます。
-```
+drop関数を使うと、リストの最初の数項を取り除くことができます。
+
+```haskell
 Prelude> drop 10 [1,3..100]
 [21,23,25,27,29,31,33,35,37,39,41,43,45,47,49,51,53,55,57,59,61,63,65,67,69,71,73,75,77,79,81,83,85,87,89,91,93,95,97,99]
 Prelude> drop 10 (filter isPrime [1..100])
@@ -174,14 +195,13 @@ Prelude> drop 10 (filter isPrime [1..100])
 
 # 無限リスト
 
-Haskellでは無限リストを扱うことができます。
-
-等差数列で最後の項を指定しないと無限リストになります。
+Haskellでは無限リストを扱うことができます。例えば、等差数列で最後の項を指定しないと無限リストになります。
 
 例：`[0..]` と書くと `[0,1,2,3,…]` という無限リストができる。（対話環境で表示しようとすると止まらないので注意！）
 
-無限リストの中身を見てみたい時は、take関数と組み合わせて使うと便利です。
-```
+無限リストの中身を見てみたい時は、take関数を使って有限の部分だけを表示させると良いでしょう。
+
+```haskell
 Prelude> let naturalNumbers = [0..] -- 無限リスト
 Prelude> take 10 naturalNumbers
 [0,1,2,3,4,5,6,7,8,9]
@@ -189,8 +209,9 @@ Prelude> take 20 naturalNumbers
 [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
 ```
 
-filterやmapなどの関数も、普通に無限リストに対して使えます。
-```
+filterやmapなどの関数も、無限リストに対して適用することができます。
+
+```haskell
 Prelude> let primes = filter isPrime [1..]
 Prelude> take 10 primes
 [2,3,5,7,11,13,17,19,23,29]
@@ -205,14 +226,17 @@ Prelude> take 20 primes
 Data.Charモジュールを読み込むと、文字に関する関数を使えるようになります。Data.Charモジュールの関数と、この記事で紹介したリストの関数を使うと、文字列操作の幅が広がります。
 
 ghciで `import Data.Char` と入力すると、Data.Charモジュールが読み込まれます。
-```
+
+```haskell
 Prelude> import Data.Char
 Prelude Data.Char>
 ```
 
 ## toUpper / toLower関数
+
 アルファベットを大文字／小文字にします。map関数と組み合わせてみましょう。
-```
+
+```haskell
 Prelude Data.Char> map toUpper "TensaiGenius"
 "TENSAIGENIUS"
 Prelude Data.Char> map toLower "TensaiGenius"
@@ -220,8 +244,10 @@ Prelude Data.Char> map toLower "TensaiGenius"
 ```
 
 ## isUpper / isLower関数
+
 アルファベットが大文字か・小文字か判断します。filter関数と組み合わせると、文字列から大文字だけ・小文字だけを抜き出すことができます。
-```
+
+```haskell
 Prelude Data.Char> filter isUpper "I'm Tensai Genius!"
 "ITG"
 Prelude Data.Char> filter isLower "I'm Tensai Genius!"
