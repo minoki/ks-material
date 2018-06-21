@@ -13,10 +13,10 @@ JavaScriptは、Webページで動作することを目的として作られた�
 
 ECMAScriptの規格は、1999年に出たECMAScript 3を最後に長らく停滞していました。しかし、ゼロ年代にAjaxだの何だのでJavaScriptの重要性が増した結果、言語としても進化が必要だということになり、2009年にECMAScript 5が制定されました。その後継となるECMAScript 6はECMAScript 2015として2015年に制定され、以降は毎年規格を改定していくことになりました。
 
-定義にこだわる数学科の諸君は、言語の習得にあたって、その規格書を参照したいと思われるかもしれません。最新のECMAScriptの規格は、以下のページで閲覧・ダウンロードできます。（2017年4月の段階では、最新版は2016年のEdition 7）
+定義にこだわる数学科の諸君は、言語の習得にあたって、その規格書を参照したいと思われるかもしれません。最新のECMAScriptの規格は、以下のページで閲覧・ダウンロードできます。（2018年6月の段階では、最新版は2017年のEdition 8）
 <https://www.ecma-international.org/publications/standards/Ecma-262.htm>
 
-ブラウザー等による実装状況についてはややばらつきがありますが、現代の全てのブラウザーはECMAScript 5を実装しています。さらに、今はもう2017年なので、最新のブラウザー等ではまず間違いなくECMAScript 6が使えます。そこで、ここではECMAScript 6に基づいて解説することにします（ただし、ECMAScript 6で追加された「新しい」機能については、なるべく注釈を入れるようにします）。
+ブラウザー等による実装状況についてはややばらつきがありますが、現代の全てのブラウザーはECMAScript 5を実装しています。さらに、今はもう2018年なので、最新のブラウザー等ではまず間違いなくECMAScript 6が使えます。そこで、ここではECMAScript 6に基づいて解説することにします（ただし、ECMAScript 6で追加された「新しい」機能については、なるべく注釈を入れるようにします）。
 
 機能ごとにブラウザーでの対応状況を調べたい場合は、次のページが参考になります：
 
@@ -36,6 +36,8 @@ $ curl -Lo node_setup_8.x.sh https://deb.nodesource.com/setup_8.x
 $ sudo -E bash node_setup_8.x.sh
 $ sudo apt install nodejs
 ```
+
+（要執筆: 10系のインストール手順）
 
 参考：[Node.js 公式のインストール手順](https://nodejs.org/ja/download/package-manager/#debian-and-ubuntu-based-linux-distributions-debian-ubuntu-linux)、[NodeSource によるインストール手順](https://github.com/nodesource/distributions#installation-instructions)
 
@@ -106,6 +108,8 @@ Node.js が提供する機能を使ってみましょう。
 Web ブラウザーで JavaScript を動かしてみましょう。
 
 - [HTML/DOM の基礎](html-basics.html)
+- イベント処理
+- [絵を描こう：canvas](html-canvas.html)
 
 # もっと勉強したい方へ
 

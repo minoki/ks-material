@@ -40,7 +40,7 @@ title: HTML/DOM の基礎
     * p （属性：`id="sugoi"`）
       * テキスト：すごーい！
 
-このような木構造をJavaScriptなどのプログラミング言語を扱えるようにしたものを、**DOM** (Document Object Model) と呼びます。
+このような木構造をJavaScriptなどのプログラミング言語から扱えるようにしたものを、**DOM** (Document Object Model) と呼びます。
 
 JavaScriptからHTMLの内容を書き換える際には、HTMLソースの文字列を直接書き換える方法と、木構造であるDOMを操作する方法があります。
 
@@ -74,7 +74,7 @@ HTML文書にJavaScriptを埋め込むには、scriptという名前のタグを
 
 * Safari: メニューの「開発」＞「JavaScriptコンソールを表示」。メニューバーに「開発」がなかったら、「環境設定」＞「詳細」＞「メニューバーに“開発”メニューを表示」にチェックを入れます。
 
-* Microsoft Edge:
+* Microsoft Edge: （TODO: 調べる）
 
 開いたコンソールに「Hello world!」と表示されていれば成功です。
 
