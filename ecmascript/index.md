@@ -37,6 +37,8 @@ $ sudo -E bash node_setup_8.x.sh
 $ sudo apt install nodejs
 ```
 
+`Command 'curl' not found, ...` と言われた場合は、 `sudo apt install curl` でcurlコマンドをインストールしてください。
+
 （要執筆: 10系のインストール手順）
 
 参考：[Node.js 公式のインストール手順](https://nodejs.org/ja/download/package-manager/#debian-and-ubuntu-based-linux-distributions-debian-ubuntu-linux)、[NodeSource によるインストール手順](https://github.com/nodesource/distributions#installation-instructions)
