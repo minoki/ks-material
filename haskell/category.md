@@ -227,3 +227,7 @@ join m = m >>= id
   - これでは美しくないので（？）、 fail を Monad クラスから追放しようという動きがあります（[MonadFail Proposal](https://wiki.haskell.org/MonadFail_Proposal)）
 
 Haskellにおいてモナドがなぜ必要になるのか、どういう使われ方をするかについては、[モナド](monad.html)を見てください。
+
+# Kleisli 圏
+
+（書きたい）
