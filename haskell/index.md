@@ -41,7 +41,7 @@ $ which stack
 /usr/bin/stack
 $ export https_proxy=http://cache.ks.prv:8080
 $ stack upgrade
-Current Stack version: 1.5.1, available download version: 1.7.1
+Current Stack version: 1.5.1, available download version: 1.9.1
 ...
 
 WARNING: Installation path /home/<user>/.local/bin not found on the PATH environment variable
@@ -52,10 +52,10 @@ $ source .bashrc
 $ which stack
 /home/<user>/.local/bin/stack
 $ stack --version
-Version 1.7.1, Git revesion ...
+Version 1.9.1, Git revesion ...
 ```
 
-（執筆時点で、aptで入るstackのバージョンは1.5.1, 最新のstackのバージョンは1.7.1でした。）
+（執筆時点で、aptで入るstackのバージョンは1.5.1, 最新のstackのバージョンは1.9.1でした。）
 
 この状態では、Haskellの処理系であるGHCはまだインストールされていません。
 本来のstackの使い方としては、プロジェクトごとにGHCのバージョンを指定し、プロジェクトで必要なGHCをインストールします。
@@ -65,16 +65,16 @@ Version 1.7.1, Git revesion ...
 $ stack setup
 Writing implicit global project config file to: /home/<user>/.stack/global-project/stack.yaml
 Note: You can change the snapshot via the resolver field there.
-Using latest snapshot resolver: lts-12.12
-Downloaded lts-12.12 build plan.
+Using latest snapshot resolver: lts-12.20
+Downloaded lts-12.20 build plan.
 Preparing to install GHC to an isolated location.
 This will not interfere with any system-level installation.
-Downloaded ghc-8.4.3.
+Downloaded ghc-8.4.4.
 Installed GHC.
 ...
 ```
 
-執筆時点では、GHC 8.4.3がインストールされました。
+執筆時点では、GHC 8.4.4がインストールされました。
 
 Haskell Platformでは `ghc` や `ghci`, `runghc` という名前でGHCのコマンドが使えますが、Haskell Stackでは `stack ghc` や `stack ghci`, `stack runghc` という風に、 `stack` を冠してGHCのコマンドを使います（`stack ghci` の別名として `stack repl` を使うこともできます）。
 
