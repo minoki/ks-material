@@ -95,6 +95,7 @@ Haskell Platformでは `ghc` や `ghci`, `runghc` という名前でGHCのコマ
   - Haskell最大の特徴の一つである、型クラスについて解説します。
 - [モナド](monad.html)
   - Haskellでは入出力処理のためにモナドが使われます。ここでは、実用的な側面からモナドをゆる〜く解説します。圏論の知識は使いません。
+- [Stackでプロジェクト管理](stack-project.html)
 
 # おまけ
 
