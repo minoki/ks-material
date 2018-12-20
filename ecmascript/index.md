@@ -110,7 +110,7 @@ Node.js が提供する機能を使ってみましょう。
 Web ブラウザーで JavaScript を動かしてみましょう。
 
 - [HTML/DOM の基礎](html-basics.html)
-- イベント処理
+- [イベント処理](html-events.html)
 - [絵を描こう：canvas](html-canvas.html)
 
 # もっと勉強したい方へ
