@@ -102,6 +102,8 @@ Haskell Platformでは `ghc` や `ghci`, `runghc` という名前でGHCのコマ
 - [Haskellと圏](category.html)
   - Haskellのどの辺で圏論の概念が登場するのか、そしてどこが圏論から乖離しているのかをざっくり解説します。
   - 圏論を知らなくてもHaskellは使えますし、圏論を知っているからといって良いHaskellプログラムが書けるとも限らないので、あくまで「おまけ」です。
+- [Haskellで競技プログラミング](competitive.html)
+  - AtCoder等の問題を解くのに必須な、「標準入力から読み取る」処理などを解説します。
 
 # この資料を読んで真面目にHaskellを学びたいと思った人へ
 
