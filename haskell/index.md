@@ -111,9 +111,10 @@ Haskell Platformでは `ghc` や `ghci`, `runghc` という名前でGHCのコマ
 
 いくつかの本には日本語訳が存在します。
 
-- [Learn You a Haskell for Great Good!](http://learnyouahaskell.com/)（2011年） 日本語訳が「[すごいHaskellたのしく学ぼう！](http://www.amazon.co.jp/%E3%81%99%E3%81%94%E3%81%84Haskell%E3%81%9F%E3%81%AE%E3%81%97%E3%81%8F%E5%AD%A6%E3%81%BC%E3%81%86-Miran-Lipova%C4%8Da/dp/4274068854)」として出版されています。原著はWebで無料で読めます。
-- [Real World Haskell](http://book.realworldhaskell.org/)（2008年） 日本語訳が「[Real World Haskell——実戦で学ぶ関数型言語プログラミング](http://www.amazon.co.jp/Real-World-Haskell%E2%80%95%E5%AE%9F%E6%88%A6%E3%81%A7%E5%AD%A6%E3%81%B6%E9%96%A2%E6%95%B0%E5%9E%8B%E8%A8%80%E8%AA%9E%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0-Bryan-OSullivan/dp/4873114233)」として出版されています。原著はWebで無料で読めます。
-- [Programming in Haskell](http://www.cs.nott.ac.uk/~gmh/book.html)（2007年） 日本語訳が「[プログラミングHaskell](http://www.amazon.co.jp/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Haskell-Graham-Hutton/dp/4274067815)」として出版されています。
+- [Learn You a Haskell for Great Good!](http://learnyouahaskell.com/)（2011年） 日本語訳が「[すごいHaskellたのしく学ぼう！](https://www.ohmsha.co.jp/book/9784274068850/)」として出版されています。原著はWebで無料で読めます。
+    - 内容が若干古くなっているので、 [2017年に「すごいHaskellたのしく学ぼう」を読む](https://qiita.com/Aruneko/items/e72f7c6ee49159751cba) も併せて読んでおきましょう。
+- [Real World Haskell](http://book.realworldhaskell.org/)（2008年） 日本語訳が「[Real World Haskell——実戦で学ぶ関数型言語プログラミング](https://www.oreilly.co.jp/books/9784873114231/)」として出版されています。原著はWebで無料で読めます。
+- [Programming in Haskell](http://www.cs.nott.ac.uk/~gmh/book.html)（2007年） 日本語訳が「[プログラミングHaskell](https://www.ohmsha.co.jp/book/9784274067815/)」として出版されています。
 
 最近のHaskell事情（例：Haskell Stackの登場）に対応した日本語の書籍も出ています：
 
