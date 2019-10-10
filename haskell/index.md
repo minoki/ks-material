@@ -10,6 +10,7 @@ title: Haskell入門
 # インストール
 
 Haskellの環境は、Haskell PlatformまたはHaskell Stackを使って導入します。
+<!-- 最近だと ghcup もあり。ただし Unix 系のみ。 -->
 
 ## Haskell Platform
 
@@ -114,7 +115,7 @@ Haskell Platformでは `ghc` や `ghci`, `runghc` という名前でGHCのコマ
 - [Learn You a Haskell for Great Good!](http://learnyouahaskell.com/)（2011年） 日本語訳が「[すごいHaskellたのしく学ぼう！](https://www.ohmsha.co.jp/book/9784274068850/)」として出版されています。原著はWebで無料で読めます。
     - 内容が若干古くなっているので、 [2017年に「すごいHaskellたのしく学ぼう」を読む](https://qiita.com/Aruneko/items/e72f7c6ee49159751cba) も併せて読んでおきましょう。
 - [Real World Haskell](http://book.realworldhaskell.org/)（2008年） 日本語訳が「[Real World Haskell——実戦で学ぶ関数型言語プログラミング](https://www.oreilly.co.jp/books/9784873114231/)」として出版されています。原著はWebで無料で読めます。
-- [Programming in Haskell](http://www.cs.nott.ac.uk/~gmh/book.html)（2007年） 日本語訳が「[プログラミングHaskell](https://www.ohmsha.co.jp/book/9784274067815/)」として出版されています。
+- [Programming in Haskell](http://www.cs.nott.ac.uk/~gmh/book.html)（2007年） 日本語訳が「[プログラミングHaskell](https://www.ohmsha.co.jp/book/9784274067815/)」として出版されています。[第2版の邦訳](https://www.lambdanote.com/collections/haskell)も2019年に出ています。
 
 最近のHaskell事情（例：Haskell Stackの登場）に対応した日本語の書籍も出ています：
 
