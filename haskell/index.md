@@ -97,6 +97,7 @@ Haskell Platformでは `ghc` や `ghci`, `runghc` という名前でGHCのコマ
 - [モナド](monad.html)
   - Haskellでは入出力処理のためにモナドが使われます。ここでは、実用的な側面からモナドをゆる〜く解説します。圏論の知識は使いません。
 - [Stackでプロジェクト管理](stack-project.html)
+- [電卓を作る（Parsecによるパーサーの実装）](parser.html)
 
 # おまけ
 
