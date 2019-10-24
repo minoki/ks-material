@@ -343,7 +343,7 @@ unexpected " "
 expecting "(" or natural
 ```
 
-空白を読み飛ばす関数
+空白を読み飛ばすパーサー
 
 ```haskell
 whiteSpace :: Parser ()
@@ -372,12 +372,183 @@ Enter expression:
 
 ## 単項マイナスの実装
 
-TODO: 書く
+前置の単項マイナスを実装してみましょう。
+`buildExpressionParser` を使う場合は、 `Prefix` で前置演算子を定義します。
+
+```haskell
+expr :: Parser Integer
+expr = buildExpressionParser
+       [[binary "*" (*) AssocLeft, binary "/" div AssocLeft]
+       ,[binary "+" (+) AssocLeft, binary "-" (-) AssocLeft, prefix "-" negate]
+       ]
+       atom
+  where
+    binary name fun assoc = Infix (reservedOp name >> return fun) assoc
+    prefix name fun = Prefix (fun <$ reservedOp name)
+```
+
+`fun <$ reservedOp name` は `reservedOp name >> return fun` と同じ意味です。
+
+ここでは単項マイナスの優先順位を掛け算・割り算よりも低く設定したため、 `-2 * -3` みたいな入力はパースエラーとなります。
 
 ## べき乗の実装
 
-TODO: 書く
+べき乗も実装してみましょう。
+
+べき乗は掛け算・割り算よりも優先順位を高くします。
+つまり、`3 * 2 ^ 4` は `3 * (2 ^ 4)` と解釈され、 `3 ^ 2 * 4` は `(3 ^ 2) * 4` と解釈されます。
+
+今まで実装した二項演算子は左結合（`2 * 3 * 4` が `(2 * 3) * 4` と解釈される）でしたが、べき乗の記号 `^` は右結合とすることが一般的です。
+右結合にするには、 `Infix` に `AssocLeft` の代わりに `AssocRight` を渡します。
+
+```haskell
+expr :: Parser Integer
+expr = buildExpressionParser
+       [[binary "^" (^) AssocRight]
+       ,[binary "*" (*) AssocLeft, binary "/" div AssocLeft]
+       ,[binary "+" (+) AssocLeft, binary "-" (-) AssocLeft, prefix "-" negate]
+       ]
+       atom
+  where
+    binary name fun assoc = Infix (reservedOp name >> return fun) assoc
+    prefix name fun = Prefix (fun <$ reservedOp name)
+```
 
 ## 階乗の実装
 
-TODO: 書く
+階乗には `Postfix` を使います。
+
+```haskell
+expr :: Parser Integer
+expr = buildExpressionParser
+       [[binary "^" (^) AssocRight, postfix "!" fact]
+       ,[binary "*" (*) AssocLeft, binary "/" div AssocLeft]
+       ,[binary "+" (+) AssocLeft, binary "-" (-) AssocLeft, prefix "-" negate]
+       ]
+       atom
+  where
+    binary name fun assoc = Infix (reservedOp name >> return fun) assoc
+    prefix name fun = Prefix (fun <$ reservedOp name)
+    postfix name fun = Postfix (fun <$ reservedOp name)
+```
+
+優先順位を `^` と同じに設定しましたが、 `2 ^ 3 !` は `64` になりました。
+
+## 抽象構文木の作成
+
+プログラムのソースコードを抽象化して木構造として表したものを、**抽象構文木**（Abstract Syntax Tree, AST）と呼びます。
+例えば `(1 + 2) * 3 * 4` は
+
+```
+Mul
+├ Mul
+│ ├ Add
+│ │ ├ Const 1
+│ │ └ Const 2
+│ └ Const 3
+└ Const 4
+```
+
+という風な木構造になります。
+木構造になってしまえば、演算子の結合やカッコの有無を考える必要はなくなります。
+
+Haskellの代数的データ型を使うと、抽象構文木を簡潔に表現できます。
+
+```haskell
+data Expr = Const Integer
+          | Add Expr Expr
+          | Sub Expr Expr
+          | Mul Expr Expr
+          | Div Expr Expr
+          | Pow Expr Expr
+          | Fact Expr
+          | Negate Expr
+          deriving (Eq, Show)
+```
+
+この `Expr` 型を使うと、先ほどの構文木は `Mul (Mul (Add (Const 1) (Const 2)) (Const 3)) (Const 4)` となります。
+
+これまでのパーサーでは `Parser Integer` のようにパース結果は `Integer` でしたが、 `Parser Expr` と、抽象構文木を返すようにします。
+
+```haskell
+
+atom :: Parser Expr
+atom = do symbol "("
+          x <- expr
+          symbol ")"
+          return x
+   <|> (Const <$> natural)
+
+fact :: Integer -> Integer
+fact n | n < 0 = error "negative factorial"
+       | otherwise = product [1..n]
+
+expr :: Parser Expr
+expr = buildExpressionParser
+       [[binary "^" Pow AssocRight, postfix "!" fact]
+       ,[binary "*" Mul AssocLeft, binary "/" Div AssocLeft]
+       ,[binary "+" Add AssocLeft, binary "-" Sub AssocLeft, prefix "-" Negate]
+       ]
+       atom
+  where
+    binary name fun assoc = Infix (reservedOp name >> return fun) assoc
+    prefix name fun = Prefix (fun <$ reservedOp name)
+    postfix name fun = Postfix (fun <$ reservedOp name)
+
+wholeExpr :: Parser Expr
+wholeExpr = do whiteSpace
+               x <- expr
+               eof
+               return x
+```
+
+この状態で実行してみると、
+
+```
+Enter expression:
+(1 + 2) * 3 * 4
+Mul (Mul (Add (Const 1) (Const 2)) (Const 3)) (Const 4)
+```
+
+と、値の代わりにASTが表示されるようになります。
+
+本格的なプログラミング言語を作る場合は、抽象構文木を元にしてコンパイルや最適化を行いますが、今回はただの電卓なので、せいぜい「値を計算する」のが関の山でしょう。
+`Expr` 型の値を計算するコードは次のようになります：
+
+```haskell
+eval :: Expr -> Integer
+eval (Const x) = x
+eval (Add x y) = eval x + eval y
+eval (Sub x y) = eval x - eval y
+eval (Mul x y) = eval x * eval y
+eval (Div x y) = eval x `div` eval y
+eval (Pow x y) = eval x ^ eval y
+eval (Fact x) = fact (eval x)
+eval (Negate x) = - eval x
+```
+
+main関数で、ASTと計算した値の両方を表示させるようにしてみましょう。
+
+```haskell
+main = do ...
+          case parse wholeExpr "stdin" s of
+            Left err -> print err
+            Right x -> do print x
+                          print (eval x)
+```
+
+実行例は次のようになります。
+
+```
+Enter expression:
+(1 + 2) * 3 * 4
+Mul (Mul (Add (Const 1) (Const 2)) (Const 3)) (Const 4)
+36
+```
+
+## buildExpressionParserを使わない方法
+
+ここまでは演算子の優先順位や結合は `buildExpressionParser` に丸投げしてきました。
+ここでは `buildExpressionParser` を使わずに同様の機能を手書きしてみましょう。
+
+（TODO: 執筆）
