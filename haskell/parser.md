@@ -471,7 +471,6 @@ data Expr = Const Integer
 これまでのパーサーでは `Parser Integer` のようにパース結果は `Integer` でしたが、 `Parser Expr` と、抽象構文木を返すようにします。
 
 ```haskell
-
 atom :: Parser Expr
 atom = do symbol "("
           x <- expr
@@ -551,4 +550,97 @@ Mul (Mul (Add (Const 1) (Const 2)) (Const 3)) (Const 4)
 ここまでは演算子の優先順位や結合は `buildExpressionParser` に丸投げしてきました。
 ここでは `buildExpressionParser` を使わずに同様の機能を手書きしてみましょう。
 
-（TODO: 執筆）
+```haskell
+atom :: Parser Expr
+atom = do symbol "("
+          x <- expr
+          symbol ")"
+          return x
+   <|> (Const <$> natural)
+
+factor :: Parser Expr
+factor = do a <- atom
+            morePostfix a
+  where
+    morePostfix :: Expr -> Parser Expr
+    morePostfix a = (reservedOp "^" >> Pow a <$> factor)
+                <|> (reservedOp "!" >> morePostfix (Fact a))
+                <|> return a
+
+term :: Parser Expr
+term = do a <- factor
+          moreFactors a
+  where
+    moreFactors :: Expr -> Parser Expr
+    moreFactors a = do reservedOp "*"
+                       b <- factor
+                       moreFactors (Mul a b)
+                <|> do reservedOp "/"
+                       b <- factor
+                       moreFactors (Div a b)
+                <|> return a
+
+expr :: Parser Expr
+expr = do a <- term
+          xs <- many (do reservedOp "+"
+                         b <- term
+                         return (\x -> Add x b)
+                      <|> do reservedOp "-"
+                             b <- term
+                             return (\x -> Sub x b)
+                     )
+          return $ foldl (flip ($)) a xs
+```
+
+`atom` は従来通りです。
+
+`buildExpressionParser` を使っていた `expr` は、
+
+* 中置 `^` と後置 `!` をパースする `factor`
+* 中置 `*` と中置 `/` をパースする `term`
+* 中置 `+` と中置 `-` をパースする `expr`
+
+の3つに分割しました。
+これらがそれぞれパースする文字列の例は
+
+* `factor` は例えば `3^2!` を最後までパースし、 `3^2*4` の `3^2` までをパースする。
+* `term` は例えば `3^2*4` を最後までパースし、 `3^2*4+2` の `3^2*4` までをパースする。
+* `expr` は従来通り。
+
+です。
+
+`factor` は右結合の演算子をパースします。
+`atom` をパースした後、 `^` または `!` が出現するか確認します。
+`^` が出現したら再帰的に `factor` を呼び出してパースします。
+`!` が出現したら、さっきパースした式に階乗をくっつけて、再び「`^` または `!` が出現するか」確認します。
+いずれも出現しなかった場合は入力の終わりに達したか `*` や `+` などの優先順位の低い演算子に遭遇したということです。
+その場合はこれ以上 `factor` でパースするものはないので、パース結果を返します。
+
+`term` と `expr` はいずれも左結合の演算子をパースします。
+ここで文法通りに
+
+```haskell
+term = do a <- term
+          reservedOp "*"
+          b <- factor
+          return (Mul a b)
+   <|> factor
+```
+
+と実装してしまうと、 `term` が無限再帰してしまいます。
+そこで一工夫して、
+
+```
+f1 * f2 * f3 * ... * fn
+```
+
+という形の式（`f` は `factor`）を読み取ってから左結合
+
+```
+(...((f1 * f2) * f3) * ... * fn)
+```
+
+にします。
+（もちろん、実際には `*` ではなく「`*` または `/`」「`+` または `-`」を使います）
+
+実際のコードでは、 `factor` を一個読み取ってから、 `('*' | '/') factor` の繰り返しをパースしています。
