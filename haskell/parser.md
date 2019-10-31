@@ -416,7 +416,15 @@ expr = buildExpressionParser
 
 ## 階乗の実装
 
-階乗には `Postfix` を使います。
+階乗の計算は適当に実装しておきます。
+
+```haskell
+fact :: Integer -> Integer
+fact n | n < 0 = error "negative factorial"
+       | otherwise = product [1..n]
+```
+
+階乗のような後置演算子のパースには `Postfix` を使います。
 
 ```haskell
 expr :: Parser Integer
@@ -432,7 +440,7 @@ expr = buildExpressionParser
     postfix name fun = Postfix (fun <$ reservedOp name)
 ```
 
-優先順位を `^` と同じに設定しましたが、 `2 ^ 3 !` は `64` になりました。
+優先順位を `^` と同じに設定しましたが、 `2 ^ 3 !` は期待通りに `64` (= `2 ^ 6`) になりました。
 
 ## 抽象構文木の作成
 
@@ -477,10 +485,6 @@ atom = do symbol "("
           symbol ")"
           return x
    <|> (Const <$> natural)
-
-fact :: Integer -> Integer
-fact n | n < 0 = error "negative factorial"
-       | otherwise = product [1..n]
 
 expr :: Parser Expr
 expr = buildExpressionParser
