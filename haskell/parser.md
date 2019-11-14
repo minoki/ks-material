@@ -649,3 +649,58 @@ f1 * f2 * f3 * ... * fn
 
 実際のコードでは、 `factor` を一個読み取ってから、 `('*' | '/') factor` の繰り返しをパースしています。
 また、 `factor` と `term` ではちょっと書き方を変えてみました。
+
+## BNF
+
+文法の定義には **Backus-Naur form** (BNF) という書き方がよく使われます。
+
+今回の電卓の文法をBNFで書くと
+
+```
+<atom> ::= '(' <expr> ')'
+         | <natural>
+<factor> ::= <factor> '^' <factor>
+           | <factor> '!'
+           | <atom>
+<term> ::= <term> '*' <term>
+         | <term> '/' <term>
+         | <factor>
+<expr> ::= <expr> '+' <expr>
+         | <expr> '-' <expr>
+         | <term>
+```
+
+となるでしょうか。
+
+「`^` が右結合である」「`*`, `/`, `+`, `-` が左結合である」という事実を反映すると、
+
+```
+<atom> ::= '(' <expr> ')'
+         | <natural>
+<factorial> ::= <atom> '!'
+              | <atom>
+<factor> ::= <factorial> '^' <factor>
+           | <factorial>
+<term> ::= <term> '*' <factor>
+         | <term> '/' <factor>
+         | <factor>
+<expr> ::= <expr> '+' <term>
+         | <expr> '-' <term>
+         | <term>
+```
+
+となります。
+
+繰り返し `{ }` や省略可能 `[ ]` を使って重複を避けるように書くと
+
+```
+<atom> ::= '(' <expr> ')'
+         | <natural>
+<factorial> ::= <atom> [ '!' ]
+<factor> ::= <factorial> [ '^' <factor> ]
+<term> ::= <factor> {('*' | '/') <factor>}
+<expr> ::= <term> {('+' | '-') <term>}
+```
+
+となるでしょう。
+ここまでくるとほぼそのままパーサーコンビネーターを使って書き下すことができます。
